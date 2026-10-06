@@ -1,0 +1,7 @@
+.env
+.deploy/
+__pycache__/
+.pytest_cache/
+.venv/
+*.db
+reports/*.xml

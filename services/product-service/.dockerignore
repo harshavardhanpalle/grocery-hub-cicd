@@ -1,0 +1,6 @@
+__pycache__
+.venv
+*.db
+.pytest_cache
+test_main.py
+requirements-dev.txt

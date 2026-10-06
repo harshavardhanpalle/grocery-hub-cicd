@@ -1,0 +1,7 @@
+# Keep Unix line endings so the shell scripts work inside Linux containers (important on Windows)
+* text=auto
+*.sh text eol=lf
+Jenkinsfile text eol=lf
+Dockerfile text eol=lf
+*.yml text eol=lf
+*.conf text eol=lf
