@@ -5,7 +5,9 @@ RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
 
 FROM python:3.12-slim
 ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 DB_PATH=/data/order.db
-RUN useradd --system --uid 10001 app && mkdir /data && chown app /data
+# Apply Debian security patches so the Trivy gate passes
+RUN apt-get update && apt-get -y upgrade && rm -rf /var/lib/apt/lists/* \
+    && useradd --system --uid 10001 app && mkdir /data && chown app /data
 COPY --from=builder /install /usr/local
 WORKDIR /app
 COPY main.py .

@@ -1,5 +1,8 @@
 FROM nginxinc/nginx-unprivileged:1.27-alpine
-# Runs as non-root (uid 101) and listens on 8080
+# Apply Alpine security patches (needs root), then drop back to the non-root nginx user (uid 101)
+USER root
+RUN apk update && apk upgrade --no-cache
+USER 101
 COPY gateway/nginx.conf /etc/nginx/conf.d/default.conf
 COPY frontend/ /usr/share/nginx/html/
 EXPOSE 8080
