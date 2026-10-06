@@ -16,7 +16,6 @@ pipeline {
   }
   environment {
     IMAGE_TAG = "${env.BUILD_NUMBER}"
-    SIMULATE_UNHEALTHY = "${params.SIMULATE_BAD_RELEASE == true}"
     TRIVY_SEVERITY = 'HIGH,CRITICAL'
     TRIVY_EXIT_CODE = '1'            // 1 = block deploy on findings, 0 = report only
   }
@@ -60,6 +59,7 @@ pipeline {
     }
 
     stage('Deploy') {
+      environment { SIMULATE_UNHEALTHY = "${params.SIMULATE_BAD_RELEASE == true}" }   // demo flag applies ONLY to deploy, not to unit tests
       steps { sh 'bash ./scripts/deploy.sh' }
     }
 
